@@ -31,8 +31,9 @@ import javafx.stage.Stage;
  * @author Patryk
  */
 public class LoginController implements Initializable {
-
+    private DBRepoInterface  repo = null;
     private Injector injector = null;
+    int accountType;
     @FXML
     private Label txtError;
     
@@ -50,11 +51,8 @@ public class LoginController implements Initializable {
         person.setLogin(this.txtUsername.getText());
         person.setPassword(this.txtPassword.getText());
         
-        DBRepoInterface repo = injector.getInstance(DBRepoInterface.class);
-        repo.ConnectDB();
-        
-        int accountType = repo.CheckUser(person);
-        
+        accountType = repo.CheckUser(person);
+        System.out.println("type "+accountType);
         if(accountType == -1){
             this.txtError.setVisible(true);
         }
@@ -98,9 +96,15 @@ public class LoginController implements Initializable {
         stage.show();
     }
     
+    public LoginController(){
+        injector = new InjectorInstance().getInstance();
+        repo = injector.getInstance(DBRepoInterface.class);
+        repo.ConnectDB();
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        injector = new InjectorInstance().getInstance();
+        
     }    
     
 }
