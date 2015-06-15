@@ -89,21 +89,16 @@ public class DBRepo implements DBRepoInterface{
     @Override
     public int CheckUser(Person person){
         Statement stat = null;
+        int type = 0;
         try{
             stat = connection.createStatement();
-            ResultSet result = stat.executeQuery("SELECT * FROM USERS WHERE username = '"+person.getLogin()+"'"
-                    + "AND password = '"+person.getPassword()+"'");
-            if(result.next())
-            {
-                return result.getInt("accountId");
+            ResultSet result = stat.executeQuery("SELECT accountId FROM USERS WHERE username = '"+person.getLogin()+"'");
+            if(result.next()){
+                type = result.getInt("accountId");
             }
-            else{
-                return -1;
-            }
-            
-        }catch(SQLException e){
-            System.out.println(e.getMessage());
-            return -1;
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+            type = -1;
         }
         finally{
             try {
@@ -112,6 +107,7 @@ public class DBRepo implements DBRepoInterface{
                 Logger.getLogger(DBRepo.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        return type;
     }
     
     @Override
