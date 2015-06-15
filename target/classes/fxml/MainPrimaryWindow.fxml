@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.limanowa.library.MainPrimaryWindowController">
+  <children>
+    <TextField fx:id="txtSearch" layoutX="135.0" layoutY="178.0" prefHeight="33.0" prefWidth="330.0" promptText="Wpisz szukaną frazę..." />
+    <Button fx:id="btnSearch" layoutX="437.0" layoutY="222.0" mnemonicParsing="false" onAction="#btnSearchAction" text="Szukaj" />
+    <Button fx:id="btnCatalog" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnCatalogAction" prefHeight="21.0" prefWidth="95.0" text="Katalog" />
+    <Button fx:id="btnLogin" layoutX="491.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnLoginAction" prefHeight="21.0" prefWidth="95.0" text="Zaloguj się!" />
+    <Button fx:id="btnRegister" layoutX="345.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnRegisterAction" prefHeight="21.0" prefWidth="132.0" text="Stwórz konto!" />
+    <Button fx:id="btnEnd" layoutX="530.0" layoutY="366.0" mnemonicParsing="false" onAction="#btnEndAction" text="Wyjście" />
+    <Label alignment="CENTER" layoutX="123.0" layoutY="126.0" prefHeight="33.0" prefWidth="354.0" text="Witamy w domowej bibliotece!">
+      <font>
+        <Font size="16.0" />
+      </font>
+    </Label>
+  </children>
+</AnchorPane>

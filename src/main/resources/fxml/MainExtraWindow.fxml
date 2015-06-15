@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.limanowa.library.MainExtraWindowController">
+  <children>
+    <TextField fx:id="txtSearch" layoutX="133.0" layoutY="177.0" prefHeight="33.0" prefWidth="330.0" promptText="Wpisz szukaną frazę..." />
+    <Button fx:id="btnSearch" layoutX="435.0" layoutY="221.0" mnemonicParsing="false" onAction="#btnSearchAction" text="Szukaj" />
+    <Button fx:id="btnCatalog" layoutX="12.0" layoutY="13.0" mnemonicParsing="false" onAction="#btnCatalogAction" prefHeight="21.0" prefWidth="95.0" text="Katalog" />
+    <Button id="btnLogin" fx:id="btnLogOut" layoutX="489.0" layoutY="13.0" mnemonicParsing="false" onAction="#btnLogOutAction" prefHeight="21.0" prefWidth="95.0" text="Wyloguj sie!" />
+    <Button id="" fx:id="btnMyItem" layoutX="350.0" layoutY="13.0" mnemonicParsing="false" onAction="#btnMyItemAction" prefHeight="21.0" prefWidth="132.0" text="Moje wypożyczenia" />
+    <Button id="btnEnd" fx:id="btnEndAction" layoutX="528.0" layoutY="365.0" mnemonicParsing="false" onAction="#btnEndAction" text="Wyjście" />
+    <Label fx:id="lblWelcome" alignment="CENTER" layoutX="121.0" layoutY="125.0" prefHeight="33.0" prefWidth="354.0" text="Witamy w domowej bibliotece!">
+      <font>
+        <Font size="16.0" />
+      </font>
+    </Label>
+    <Button id="btn" fx:id="btnApproval" layoutX="272.0" layoutY="13.0" mnemonicParsing="false" onAction="#btnApprovalAction" text="Zarządzaj" />
+    <Button fx:id="btnMessages" layoutX="12.0" layoutY="41.0" mnemonicParsing="false" onAction="#btnMessagesAction" prefWidth="95.0" text="Wiadomości" />
+  </children>
+</AnchorPane>

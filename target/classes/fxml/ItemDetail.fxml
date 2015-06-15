@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.limanowa.library.ItemDetailController">
+  <children>
+    <Label fx:id="lblTitle" alignment="CENTER" contentDisplay="TOP" layoutX="274.0" layoutY="14.0" text="Tytul">
+      <font>
+        <Font size="24.0" />
+      </font>
+    </Label>
+    <TextArea fx:id="txtDescription" disable="false" editable="false" layoutX="14.0" layoutY="72.0" opacity="1.0" prefHeight="105.0" prefWidth="324.0" wrapText="true" />
+    <Label fx:id="lblCategory" layoutX="14.0" layoutY="185.0" text="Kategoria" />
+    <Label fx:id="lblSubcategory" layoutX="14.0" layoutY="200.0" text="Podkategorian" />
+    <Label fx:id="lblUser" layoutX="14.0" layoutY="216.0" text="Wlasciciel" />
+    <Label fx:id="lblAuthor" layoutX="14.0" layoutY="232.0" text="Rezyser/Autor/Zesól" />
+    <Button fx:id="btnBack" layoutX="530.0" layoutY="366.0" mnemonicParsing="false" onAction="#btnBackAction" text="Powrót" />
+    <Button fx:id="btnOrder" layoutX="117.0" layoutY="292.0" mnemonicParsing="false" onAction="#btnOrderAction" text="Złóż zamównienie!" />
+    <Label fx:id="lblMsg" layoutX="14.0" layoutY="268.0" text="Nie możesz pożyczyć tej rzeczy, to jest Twoje !" textFill="RED" visible="false" />
+    <Label fx:id="lblAval" layoutX="14.0" layoutY="252.0" text="Ta rzecz jest juz zamówiona/pożyczona" textFill="#cc0000" visible="false" />
+  </children>
+</AnchorPane>

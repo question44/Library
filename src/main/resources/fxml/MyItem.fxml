@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.limanowa.library.MyItemController">
+  <children>
+    <Button fx:id="btnBack" layoutX="528.0" layoutY="366.0" mnemonicParsing="false" onAction="#btnBackAction" text="Powrót" />
+    <TableView fx:id="tableView" layoutX="14.0" layoutY="85.0" prefHeight="200.0" prefWidth="572.0">
+      <columns>
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="200.0" text="Tytuł" fx:id="colTitle" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="160.0" text="Kategoria" fx:id="colCategory" />
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="210.0" text="Właściciel" fx:id="colOwner" />
+      </columns>
+    </TableView>
+    <Label layoutX="122.0" layoutY="28.0" text="Rzeczy wypożyczone przez Ciebie">
+      <font>
+        <Font size="24.0" />
+      </font>
+    </Label>
+    <Button fx:id="btnReturn" layoutX="274.0" layoutY="301.0" mnemonicParsing="false" onAction="#btnReturnAction" text="Oddane" visible="false" />
+    <Button fx:id="btnBackLog" layoutX="528.0" layoutY="366.0" mnemonicParsing="false" onAction="#btnBackLogAction" text="Powrót" />
+  </children>
+</AnchorPane>

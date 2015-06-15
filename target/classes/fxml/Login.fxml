@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.limanowa.library.LoginController">
+  <children>
+    <Label alignment="CENTER" layoutX="260.0" layoutY="128.0" text="Zaloguj się!">
+      <font>
+        <Font size="16.0" />
+      </font>
+    </Label>
+    <TextField fx:id="txtUsername" layoutX="202.0" layoutY="178.0" prefWidth="200.0" promptText="Podaj login..." />
+    <PasswordField fx:id="txtPassword" layoutX="202.0" layoutY="210.0" prefWidth="200.0" promptText="Podaj hasło..." />
+    <Button fx:id="btnLogin" layoutX="372.0" layoutY="253.0" mnemonicParsing="false" onAction="#btnLoginAction" text="Zaloguj" />
+    <Button fx:id="btnBack" layoutX="528.0" layoutY="365.0" mnemonicParsing="false" onAction="#btnBackAction" text="Powrót" />
+    <Label fx:id="txtError" disable="false" layoutX="202.0" layoutY="255.0" prefWidth="170.0" text="Login lub haslo nieprawidlowe" textFill="#cc0000" visible="false" />
+  </children>
+</AnchorPane>

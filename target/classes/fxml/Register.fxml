@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.limanowa.library.RegisterController">
+  <children>
+    <Label alignment="CENTER" layoutX="155.0" layoutY="41.0" prefWidth="290.0" text="Podaj dane do swojego konta">
+      <font>
+        <Font size="16.0" />
+      </font>
+    </Label>
+    <GridPane layoutX="126.0" layoutY="81.0" prefHeight="-1.0" prefWidth="305.0" style="paddig:5px;&#10;">
+      <children>
+        <Label prefHeight="22.0" text="Imie" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <Label text="Nazwisko" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <Label text="Data urodzenia" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <Label text="E-mail" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <Label text="Kategoria konta" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+        <Label text="Login" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+        <Label text="Hasło" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+        <Label text="Powtórz hasło" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+        <TextField fx:id="txtFirstname" prefHeight="19.0" prefWidth="156.0" promptText="Wpisz imie ..." GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <TextField fx:id="txtLastname" prefHeight="21.0" prefWidth="145.0" promptText="Wpisz nazwisko ...." GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <TextField fx:id="txtEmail" prefHeight="19.0" prefWidth="156.0" promptText="Wpisz e-mail ..." GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <TextField fx:id="txtLogin" prefHeight="19.0" prefWidth="156.0" promptText="Podaj login ..." GridPane.columnIndex="1" GridPane.rowIndex="5" />
+        <PasswordField fx:id="txtPassword" prefWidth="200.0" promptText="Podaj hasło ..." GridPane.columnIndex="1" GridPane.rowIndex="6" />
+        <PasswordField prefWidth="200.0" promptText="Powtórz hasło ..." GridPane.columnIndex="1" GridPane.rowIndex="7" />
+        <ComboBox fx:id="comboBoxCategory" prefHeight="21.0" prefWidth="145.0" promptText="Wybierz rodzaj konta" GridPane.columnIndex="1" GridPane.rowIndex="4">
+          <items>
+            <FXCollections fx:factory="observableArrayList">
+              <String fx:value="Item 1" />
+              <String fx:value="Item 2" />
+              <String fx:value="Item 3" />
+            </FXCollections>
+          </items>
+        </ComboBox>
+        <TextField fx:id="txtBirthDay" prefWidth="200.0" promptText="Wpisz date urodzenia..." GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <Button fx:id="btnRegister" mnemonicParsing="false" onAction="#btnRegisterAction" prefWidth="131.0" text="Rejestruj !" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+      </children>
+      <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="145.0" minWidth="10.0" prefWidth="97.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="145.0" minWidth="10.0" prefWidth="119.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints maxHeight="31.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="35.0" minHeight="7.0" prefHeight="29.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="30.0" minHeight="8.0" prefHeight="27.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="38.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="32.0" minHeight="3.0" prefHeight="28.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="32.0" minHeight="0.0" prefHeight="27.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="36.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="36.0" minHeight="4.0" prefHeight="32.0" vgrow="SOMETIMES" />
+      </rowConstraints>
+    </GridPane>
+    <Button id="btnEnd" fx:id="btnBack" layoutX="530.0" layoutY="366.0" mnemonicParsing="false" onAction="#btnBackAction" text="Powrót" />
+  </children>
+</AnchorPane>
