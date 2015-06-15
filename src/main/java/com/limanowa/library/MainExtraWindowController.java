@@ -94,8 +94,19 @@ public class MainExtraWindowController implements Initializable {
     }
     
     @FXML
-    private void btnAddItemAcition(ActionEvent event){
+    private void btnAddItemAcition(ActionEvent event) throws IOException{
+        ((Node)event.getSource()).getScene().getWindow().hide();
         
+        loader.setLocation(getClass().getResource("/fxml/AddItem.fxml"));
+        loader.load();
+        Parent parent = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(parent));
+        stage.setTitle("Dodaj produkt");
+        AddItemController controller = loader.<AddItemController>getController();
+        controller.setLoggedInfo(loggedInfo);
+        controller.setUser(user);
+        stage.show();
     }
     
     @FXML
