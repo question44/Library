@@ -54,4 +54,11 @@ public interface DBRepoInterface {
     public void RemoveFromSetOrders(int orderId);
     public boolean CheckMessages(String username);
     public void UpdateReadedMessage(String username);
+    public ObservableList<String>getSubCategoriesViaCategoryName(String name);
+    public ObservableList<String>getAllTags();
+    public void addTag(String name);
+    public int getSubCategoryIdDependsOnName(String name);
+    public void AddBook(BookItem item);
+    public void AddMovie(MovieItem item);
+    public void AddAlbum(AlbumItem item);
 }

@@ -761,6 +761,111 @@ public class DBRepo implements DBRepoInterface{
             }
         }
     }
+
+    @Override
+    public ObservableList<String> getSubCategoriesViaCategoryName(String name) {
+        ObservableList<String> list = FXCollections.observableArrayList();
+        Statement stat = null;
+        try{
+            stat = connection.createStatement();
+            ResultSet result = stat.executeQuery("SELECT SubCategories.name as 'n' FROM SubCategories "
+                    + "JOIN Categories ON SubCategories.categoryId = Categories.categoryId WHERE Categories.name = '"+name+"'");
+            while(result.next()){
+                list.add(result.getString("n"));
+            }
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        finally{
+            try {
+                stat.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DBRepo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public ObservableList<String> getAllTags() {
+        ObservableList<String> list = FXCollections.observableArrayList();
+        Statement stat = null;
+        try{
+            stat = connection.createStatement();
+            ResultSet result = stat.executeQuery("SELECT name as 'n' FROM Tags");
+            while(result.next()){
+                list.add(result.getString("n"));
+            }
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        finally{
+            try {
+                stat.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DBRepo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public void addTag(String name) {
+        Statement stat = null;
+        try{
+            stat = connection.createStatement();
+            stat.executeUpdate("INSERT INTO Tags(name) VALUES('"+name+"')");
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        finally{
+            try {
+                stat.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DBRepo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    @Override
+    public int getSubCategoryIdDependsOnName(String name) {
+        Statement stat = null;
+        try{
+            stat = connection.createStatement();
+            ResultSet result = stat.executeQuery("SELECT subcategoryId FROM SubCategories WHERE name ='"+name+"'");
+            if(result.next()){
+                return result.getInt("subcategoryId");
+            }
+            else{
+                return -1;
+            }
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+            return -1;
+        }
+        finally{
+            try {
+                stat.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DBRepo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    @Override
+    public void AddBook(BookItem item) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void AddMovie(MovieItem item) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void AddAlbum(AlbumItem item) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
     
