@@ -22,5 +22,6 @@
     </Label>
     <Button id="btn" fx:id="btnApproval" layoutX="272.0" layoutY="13.0" mnemonicParsing="false" onAction="#btnApprovalAction" text="Zarządzaj" />
     <Button fx:id="btnMessages" layoutX="12.0" layoutY="41.0" mnemonicParsing="false" onAction="#btnMessagesAction" prefWidth="95.0" text="Wiadomości" />
+    <Button fx:id="btnAddItem" layoutX="153.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnAddItemAcition" text="Dodaj przedmiot" visible="false" />
   </children>
 </AnchorPane>
