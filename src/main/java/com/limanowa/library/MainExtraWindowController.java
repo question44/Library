@@ -50,6 +50,8 @@ public class MainExtraWindowController implements Initializable {
     @FXML
     private Button btnMessages;
     
+    @FXML
+    private Button btnAddItem;
     
     
     @FXML
@@ -89,6 +91,11 @@ public class MainExtraWindowController implements Initializable {
     @FXML
     private void btnEndAction(ActionEvent event){
         ((Node)event.getSource()).getScene().getWindow().hide();
+    }
+    
+    @FXML
+    private void btnAddItemAcition(ActionEvent event){
+        
     }
     
     @FXML
@@ -156,6 +163,10 @@ public class MainExtraWindowController implements Initializable {
         this.lblWelcome.setText("Witaj "+this.user.getFirstName());
         if(repo.CheckMessages(user.getLogin())){
             this.btnMessages.setStyle("-fx-border-style:solid; -fx-border-width:3px; -fx-border-color:green");
+        }
+        System.out.println(user.getClass().getName());
+        if(user.getClass().getName().equals("com.limanowa.library.model.Account.ParentUser")){
+            this.btnAddItem.setVisible(true);
         }
     }
     public void setLoggedInfo(LoggedInfo loggedInfo){
