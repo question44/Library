@@ -41,16 +41,19 @@ public class DBRepo implements DBRepoInterface{
         }
     }
     
+    @Override
     public ArrayList<String> getCategories(){
         Statement stat = null;
-        ArrayList<String> list = new ArrayList<String>();
-        try{
+        ArrayList<String> list = new ArrayList<>();
+        try
+        {
             stat= connection.createStatement();
             ResultSet result = stat.executeQuery("SELECT name FROM Categories");
             while(result.next()){
                 list.add(result.getString("name"));
             }
-        }catch(SQLException e){
+        }
+        catch(SQLException e){
             System.out.println(e.getMessage());
         }
         finally{

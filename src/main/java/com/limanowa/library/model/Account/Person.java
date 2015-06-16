@@ -5,7 +5,6 @@
  */
 package com.limanowa.library.model.Account;
 
-import com.limanowa.library.model.Account.User;
 
 /**
  *
