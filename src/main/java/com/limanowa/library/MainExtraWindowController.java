@@ -53,6 +53,21 @@ public class MainExtraWindowController implements Initializable {
     @FXML
     private Button btnAddItem;
     
+    @FXML
+    private void btnTagsAction(ActionEvent event) throws IOException{
+        ((Node)event.getSource()).getScene().getWindow().hide();
+        
+        loader.setLocation(getClass().getResource("/fxml/Tags.fxml"));
+        loader.load();
+        Parent parent = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(parent));
+        stage.setTitle("Lista tagów");
+        TagsController controller = loader.<TagsController>getController();
+        controller.setLoggedInfo(loggedInfo);
+        controller.setUser(user);
+        stage.show();
+    }
     
     @FXML
     private void btnMessagesAction(ActionEvent event) throws IOException{

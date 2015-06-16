@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.limanowa.library.TagsController">
+  <children>
+    <ListView fx:id="listTag" layoutX="14.0" layoutY="55.0" prefHeight="267.0" prefWidth="226.0" />
+    <ListView fx:id="listItem" layoutX="300.0" layoutY="55.0" prefHeight="267.0" prefWidth="286.0" />
+    <Label layoutX="240.0" layoutY="14.0" text="Lista tagów">
+      <font>
+        <Font size="24.0" />
+      </font>
+    </Label>
+    <Button fx:id="btnBack" layoutX="530.0" layoutY="366.0" mnemonicParsing="false" onAction="#btnBackAction" text="Powrót" />
+    <Button fx:id="btnGo" layoutX="415.0" layoutY="329.0" mnemonicParsing="false" onAction="#btnGoAction" text="Przejdź" />
+    <Button fx:id="btnLogBack" layoutX="530.0" layoutY="366.0" mnemonicParsing="false" onAction="#btnLogBackAction" text="Powrót" visible="false" />
+  </children>
+</AnchorPane>

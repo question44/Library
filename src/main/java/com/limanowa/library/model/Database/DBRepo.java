@@ -975,5 +975,48 @@ public class DBRepo implements DBRepoInterface{
         }
         return id;
     }
+
+    @Override
+    public ObservableList<String> getTags(String category, int id) {
+        ObservableList<String> list = FXCollections.observableArrayList();
+        Statement stat = null;
+        int cat = 0;
+        System.out.println(category);
+        if(category.equals("Ksiazki")){
+            cat = 1;
+        }
+        if(category.equals("Muzyka")){
+            cat = 3;
+        }
+        if(category.equals("Film")){
+            cat = 2;
+        }
+        
+        try{
+            stat = connection.createStatement();
+            ResultSet result = stat.executeQuery("SELECT name FROM TagsItem JOIN Tags ON TagsItem.tagId = Tags.tagId"
+                    + " WHERE categoryId = "+cat+" AND itemId = "+id);
+            while(result.next()){
+                list.add(result.getString("name"));
+            }
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        finally{
+            try {
+                stat.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DBRepo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public ObservableList<String> getItemForTags(String name) {
+        ObservableList<String> list = FXCollections.observableArrayList();
+        //osobno z ksiazek, albumow i filmow i zlaczyc.
+        return list;
+    }
    
 }

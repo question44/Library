@@ -65,4 +65,6 @@ public interface DBRepoInterface {
     public int getLastId(String table, String col);
     public void addAndBindTag(int idTag, int idItem, int idCategory);
     public int getTagIdDependsOnName(String name);
+    public ObservableList<String> getTags(String category, int id);
+    public ObservableList<String> getItemForTags(String name);
 }
