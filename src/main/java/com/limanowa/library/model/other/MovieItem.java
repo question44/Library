@@ -53,4 +53,23 @@ public class MovieItem extends Item{
     public void setAvalibility(int item, int val) {
         repo.setAvalibity(2, item, val);
     }
+
+    @Override
+    public void addItem(Item item, String var) {
+        MovieItem it = new MovieItem();
+        
+        it.setAvalibility(item.isAvalibility());
+        it.setSubcategoryId(item.getSubcategoryId());
+        it.setTitle(item.getTitle());
+        it.setDirector(var);
+        it.setDescription(item.getDescription());
+        it.setUserId(item.getUserId());
+        
+        repo.AddMovie(it);
+    }
+
+    @Override
+    public int getLastId() {
+        return repo.getLastId("Movies", "moviesId");
+    }
 }

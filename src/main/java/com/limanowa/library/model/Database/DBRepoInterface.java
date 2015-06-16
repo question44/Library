@@ -9,6 +9,7 @@ import com.limanowa.library.model.Account.Person;
 import com.limanowa.library.model.other.AlbumItem;
 import com.limanowa.library.model.other.ApprovalInfo;
 import com.limanowa.library.model.other.BookItem;
+import com.limanowa.library.model.other.Item;
 import com.limanowa.library.model.other.MovieItem;
 import com.limanowa.library.model.other.OrderInfo;
 import com.limanowa.library.model.other.SetOrderInfo;
@@ -61,4 +62,7 @@ public interface DBRepoInterface {
     public void AddBook(BookItem item);
     public void AddMovie(MovieItem item);
     public void AddAlbum(AlbumItem item);
+    public int getLastId(String table, String col);
+    public void addAndBindTag(int idTag, int idItem, int idCategory);
+    public int getTagIdDependsOnName(String name);
 }

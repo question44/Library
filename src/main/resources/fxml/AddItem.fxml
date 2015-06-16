@@ -52,5 +52,6 @@
     <Button fx:id="btnRemoveFromList" layoutX="445.0" layoutY="359.0" mnemonicParsing="false" onAction="#btnRemoveFromListAction" prefWidth="93.0" text="Usun z listy" />
     <Button fx:id="btnAdd" layoutX="271.0" layoutY="365.0" mnemonicParsing="false" onAction="#btnAddAction" text="DODAJ" />
     <Button fx:id="btnBackLog" layoutX="530.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnBackLogAction" text="Powrót" />
+    <Label fx:id="lblAdded" layoutX="256.0" layoutY="368.0" text="Dodano do bazy" textFill="#009918" visible="false" />
   </children>
 </AnchorPane>

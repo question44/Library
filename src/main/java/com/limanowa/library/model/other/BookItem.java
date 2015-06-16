@@ -53,4 +53,23 @@ public class BookItem extends Item{
     public void setAvalibility(int item, int val) {
         repo.setAvalibity(1, item, val);
     }
+
+    @Override
+    public void addItem(Item item, String var) {
+        BookItem it = new BookItem();
+        
+        it.setAvalibility(item.isAvalibility());
+        it.setSubcategoryId(item.getSubcategoryId());
+        it.setTitle(item.getTitle());
+        it.setAuthor(var);
+        it.setDescription(item.getDescription());
+        it.setUserId(item.getUserId());
+        
+        repo.AddBook(it);
+    }
+
+    @Override
+    public int getLastId() {
+        return repo.getLastId("Books","bookId");
+    }
 }

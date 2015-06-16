@@ -9,6 +9,8 @@ import com.google.inject.Injector;
 import com.limanowa.library.model.Account.User;
 import com.limanowa.library.model.Database.DBRepoInterface;
 import com.limanowa.library.model.Database.Injection.InjectorInstance;
+import com.limanowa.library.model.ItemFactory.ItemFactory;
+import com.limanowa.library.model.other.Item;
 import com.limanowa.library.model.other.LoggedInfo;
 import java.io.IOException;
 import java.net.URL;
@@ -96,6 +98,9 @@ public class AddItemController implements Initializable {
     private Button btnBackLog;
     
     @FXML
+    private Label lblAdded;
+    
+    @FXML
     private void btnBackLogAction(ActionEvent event) throws IOException{
         System.out.println("wychodze");
         ((Node)event.getSource()).getScene().getWindow().hide();
@@ -170,7 +175,35 @@ public class AddItemController implements Initializable {
     
     @FXML
     private void btnAddAction(ActionEvent event){
+        ItemFactory factory = new ItemFactory();
+        int itemType = 0;
+        int idItem = 0;
+        if(this.cbItemCategory.getValue().toString().equals("Ksiazki")){
+            itemType = 1;
+        }
         
+        if(this.cbItemCategory.getValue().toString().equals("Filmy")){
+            itemType = 2;
+        }
+        
+        if(this.cbItemCategory.getValue().toString().equals("Muzyka")){
+            itemType = 3;
+        }
+        Item itemReadyToAdd = factory.createItem(itemType);
+        
+        itemReadyToAdd.setAvalibility(1);
+        itemReadyToAdd.setDescription(txtDescription.getText());
+        itemReadyToAdd.setUserId(loggedInfo.getUserId());
+        itemReadyToAdd.setTitle(txtTitle.getText());
+        itemReadyToAdd.setSubcategoryId(repo.getSubCategoryIdDependsOnName(cbItemSubcategory.getValue().toString()));
+        
+        itemReadyToAdd.addItem(itemReadyToAdd,txtVar.getText());
+        idItem = itemReadyToAdd.getLastId();
+        for(String x: tagsForNewItem){
+            repo.addAndBindTag(repo.getTagIdDependsOnName(x), idItem, itemType);
+        }
+        this.btnAdd.setVisible(false);
+        this.lblAdded.setVisible(true);
     }
     
     

@@ -8,6 +8,7 @@ import com.limanowa.library.model.Account.Person;
 import com.limanowa.library.model.other.AlbumItem;
 import com.limanowa.library.model.other.ApprovalInfo;
 import com.limanowa.library.model.other.BookItem;
+import com.limanowa.library.model.other.Item;
 import com.limanowa.library.model.other.MovieItem;
 import com.limanowa.library.model.other.OrderInfo;
 import com.limanowa.library.model.other.SetOrderInfo;
@@ -854,19 +855,125 @@ public class DBRepo implements DBRepoInterface{
 
     @Override
     public void AddBook(BookItem item) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Statement stat = null;
+        try{
+            stat = connection.createStatement();
+            stat.executeUpdate("INSERT INTO Books(subcategoryId, title, author, description, userId, avalible)"
+                    + "VALUES("+item.getSubcategoryId()+",'"+item.getTitle()+"','"+item.getAuthor()+"','"+item.getDescription()+"', "+item.getUserId()+","+item.isAvalibility()+")");
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        finally{
+            try {
+                stat.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DBRepo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     @Override
     public void AddMovie(MovieItem item) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Statement stat = null;
+        try{
+            stat = connection.createStatement();
+            stat.executeUpdate("INSERT INTO Movies(subcategoryId, title, director, description, userId, avalible)"
+                    + "VALUES("+item.getSubcategoryId()+",'"+item.getTitle()+"','"+item.getDirector()+"','"+item.getDescription()+"', "+item.getUserId()+","+item.isAvalibility()+")");
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        finally{
+            try {
+                stat.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DBRepo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     @Override
     public void AddAlbum(AlbumItem item) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Statement stat = null;
+        try{
+            stat = connection.createStatement();
+            stat.executeUpdate("INSERT INTO Albums(subcategoryId, title, band, description, userId, avalible)"
+                    + "VALUES("+item.getSubcategoryId()+",'"+item.getTitle()+"','"+item.getBand()+"','"+item.getDescription()+"', "+item.getUserId()+","+item.isAvalibility()+")");
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        finally{
+            try {
+                stat.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DBRepo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
-    
-    
-    
+
+    @Override
+    public int getLastId(String table, String col) {
+        int id = -1;
+        Statement stat = null;
+        try{
+            stat = connection.createStatement();
+            ResultSet result = stat.executeQuery("SELECT max("+col+") as 'max' FROM "+table);
+            if(result.next()){
+                id = result.getInt("max");
+            }
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+            return -1;
+        }
+        finally{
+            try {
+                stat.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DBRepo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return id;
+    }
+
+    @Override
+    public void addAndBindTag(int idTag, int idItem, int idCategory) {
+        Statement stat = null;
+        try{
+            stat = connection.createStatement();
+            stat.executeUpdate("INSERT INTO TagsItem(itemId, tagId, categoryId) VALUES("+idItem+","+idTag+","+idCategory+")");
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        finally{
+            try {
+                stat.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DBRepo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    @Override
+    public int getTagIdDependsOnName(String name) {
+        int id = -1;
+        Statement stat = null;
+        try{
+            stat = connection.createStatement();
+            ResultSet result = stat.executeQuery("SELECT tagId FROM Tags WHERE name = '"+name+"'");
+            if(result.next()){
+                id = result.getInt("tagId");
+            }
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+            return -1;
+        }
+        finally{
+            try {
+                stat.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DBRepo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return id;
+    }
+   
 }
