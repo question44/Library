@@ -77,6 +77,7 @@ public class ItemDetailController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(new Scene(parent));
             stage.setTitle("Katalog");
+            
             CatalogController controller = loader.<CatalogController>getController();
             controller.setLoggedInfo(loggedInfo);
             controller.setUser(user);
@@ -105,6 +106,7 @@ public class ItemDetailController implements Initializable {
             controller.setLoggedInfo(loggedInfo);
             controller.setUser(user);
             controller.setItem(item);
+            
             stage.show();
     }
     
