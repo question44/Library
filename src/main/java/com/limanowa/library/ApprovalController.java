@@ -42,7 +42,7 @@ public class ApprovalController implements Initializable {
     private Injector injector = null;
     private ApprovalInfo toApprove = null;
     private DBRepoInterface repo = null;
-    private FXMLLoader loader = new FXMLLoader();
+    final private FXMLLoader loader = new FXMLLoader();
     private ObservableList<ApprovalInfo> tableList = FXCollections.observableArrayList();
     /**
      * Initializes the controller class.

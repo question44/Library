@@ -139,10 +139,10 @@ public class CatalogController implements Initializable {
     }
     
     public void setTree(List<SubCategory> list){
-        TreeItem<String> rootNode = new TreeItem<String>("Biblioteka");
+        TreeItem<String> rootNode = new TreeItem<>("Biblioteka");
         rootNode.setExpanded(true);
         for(SubCategory s : list){
-            TreeItem<String> empLeaf = new TreeItem<String>(s.getName());
+            TreeItem<String> empLeaf = new TreeItem<>(s.getName());
             boolean found = false;
             for(TreeItem<String> catNode : rootNode.getChildren()){
                 if(catNode.getValue().contentEquals(s.getCategory())){
@@ -152,7 +152,7 @@ public class CatalogController implements Initializable {
                 }
             }
             if(!found){
-                TreeItem<String> catNode = new TreeItem<String>(s.getCategory());
+                TreeItem<String> catNode = new TreeItem<>(s.getCategory());
                 rootNode.getChildren().add(catNode);
                 catNode.getChildren().add(empLeaf);
             }

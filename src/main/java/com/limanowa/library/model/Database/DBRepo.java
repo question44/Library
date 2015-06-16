@@ -57,9 +57,11 @@ public class DBRepo implements DBRepoInterface{
             System.out.println(e.getMessage());
         }
         finally{
-            try {
+            try 
+            {
                 stat.close();
-            } catch (SQLException ex) {
+            } 
+            catch (SQLException ex) {
                 Logger.getLogger(DBRepo.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -191,14 +193,17 @@ public class DBRepo implements DBRepoInterface{
         return getItemDependOnCategory("Movies");
     }
     
+    @Override
     public ObservableList<String> getBooks(String subcategory){
         return getItemDependOnCategoryAndSubcategory("Books", subcategory);
     }
     
+    @Override
     public ObservableList<String> getAlbums(String subcategory){
         return getItemDependOnCategoryAndSubcategory("Albums", subcategory);
     }
     
+    @Override
     public ObservableList<String> getMovies(String subcategory){
         return getItemDependOnCategoryAndSubcategory("Movies", subcategory);
     }
@@ -417,13 +422,13 @@ public class DBRepo implements DBRepoInterface{
     }
 
     private ObservableList<ApprovalInfo> getAlbumsOrders(int userId) throws SQLException {
-        ObservableList<ApprovalInfo> list = FXCollections.observableArrayList();
+        ObservableList<ApprovalInfo> list;
         list = getOrders("Albums","albumId",3, userId);
         return list;
     }
 
     private ObservableList<ApprovalInfo> getMoviesOrders(int userId) throws SQLException {
-        ObservableList<ApprovalInfo> list = FXCollections.observableArrayList();
+        ObservableList<ApprovalInfo> list;
         list = getOrders("Movies","moviesId",2, userId);
         return list;
     }
@@ -553,19 +558,19 @@ public class DBRepo implements DBRepoInterface{
     }
 
     private ObservableList<SetOrderInfo> getBooksSetOrders(String username) throws SQLException {
-        ObservableList<SetOrderInfo> list = FXCollections.observableArrayList();
+        ObservableList<SetOrderInfo> list;
         list = getSetOrders("Books","bookId",1, username);
         return list;
     }
 
     private ObservableList<SetOrderInfo> getAlbumsSetOrders(String username) throws SQLException {
-        ObservableList<SetOrderInfo> list = FXCollections.observableArrayList();
+        ObservableList<SetOrderInfo> list;
         list = getSetOrders("Movies","moviesId",2, username);
         return list;
     }
 
     private ObservableList<SetOrderInfo> getMoviesSetOrders(String username) throws SQLException {
-        ObservableList<SetOrderInfo> list = FXCollections.observableArrayList();
+        ObservableList<SetOrderInfo> list;
         list = getSetOrders("Albums","albumId",3, username);
         return list;
     }
@@ -732,12 +737,8 @@ public class DBRepo implements DBRepoInterface{
         try{
             stat = connection.createStatement();
             ResultSet result = stat.executeQuery("SELECT messagesId FROM Messages Where username = '"+username+"' AND readed = 0");
-            if(result.next()){
-                b = true;
-            }
-            else{
-                b = false;
-            }
+            b = (result.next() ? true : false);
+            
         }catch(SQLException ex){
             System.out.println(ex.getMessage());
         }

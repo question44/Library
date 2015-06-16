@@ -40,7 +40,7 @@ public class MyItemController implements Initializable {
     private User user = null;
     private Injector injector = null;
     private DBRepoInterface repo = null;
-    private FXMLLoader loader = new FXMLLoader();
+    final private FXMLLoader loader = new FXMLLoader();
     private ObservableList<SetOrderInfo> tableList = FXCollections.observableArrayList();
     private SetOrderInfo setOrderInfo;
     
