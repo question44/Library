@@ -35,49 +35,29 @@ import javafx.stage.Stage;
  *
  * @author Patryk
  */
-public class TagsController implements Initializable {
+public class SearchController implements Initializable {
     private LoggedInfo loggedInfo = null;
     private User user = null;
     private Item item = null;
     private Injector injector = null;
     private DBRepoInterface repo = null;
     private FXMLLoader loader = new FXMLLoader();
-    private ObservableList<String> listOfTags = FXCollections.observableArrayList();
+    private ObservableList<String> listOfItems = FXCollections.observableArrayList();
+    private String searchText;
     /**
      * Initializes the controller class.
      */
+    @FXML
+    private Button btnBack;
     
     @FXML
-    private ListView listTag;
-    
-    @FXML
-    private ListView listItem;
+    private Button btnLogBack;
     
     @FXML
     private Button btnGo;
     
-    @FXML 
-    private Button btnBack;
-    
-    @FXML 
-    private Button btnLogBack;
-    
     @FXML
-    private void btnGoAction(ActionEvent event) throws IOException{
-        ((Node)event.getSource()).getScene().getWindow().hide();
-            loader.setLocation(getClass().getResource("/fxml/ItemDetail.fxml"));
-            loader.load();
-            Parent parent = loader.getRoot();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(parent));
-            stage.setTitle(item.getTitle());
-            ItemDetailController controller = loader.<ItemDetailController>getController();
-            controller.setLoggedInfo(loggedInfo);
-            controller.setItem(item);
-            controller.setUser(user);
-            controller.setFrom("Tagi");
-            stage.show();
-    }
+    private ListView listView;
     
     @FXML
     private void btnBackAction(ActionEvent event) throws IOException{
@@ -106,7 +86,25 @@ public class TagsController implements Initializable {
             stage.show();
     }
     
-    public TagsController(){
+    @FXML
+    private void btnGoAction(ActionEvent event) throws IOException{
+        ((Node)event.getSource()).getScene().getWindow().hide();
+            loader.setLocation(getClass().getResource("/fxml/ItemDetail.fxml"));
+            loader.load();
+            Parent parent = loader.getRoot();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(parent));
+            stage.setTitle(item.getTitle());
+            ItemDetailController controller = loader.<ItemDetailController>getController();
+            controller.setLoggedInfo(loggedInfo);
+            controller.setItem(item);
+            controller.setUser(user);
+            controller.setFrom("Wyszukiwarka");
+            controller.setSearch(searchText);
+            stage.show();
+    }
+    
+    public SearchController(){
         injector = new InjectorInstance().getInstance();
         repo = injector.getInstance(DBRepoInterface.class);
         repo.ConnectDB();
@@ -114,31 +112,27 @@ public class TagsController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        setList();
-    }    
+        
+    }
     
     private void setList(){
-        listOfTags = repo.getAllTags();
-        listTag.setItems(listOfTags);
-        listTag.getSelectionModel().selectedItemProperty().addListener(new ChangeListener(){
+        listOfItems = repo.getSearchedItems(this.searchText);
+        listView.setItems(listOfItems);
+        listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener(){
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                listItem.setItems(repo.getItemForTags(newValue.toString()));
-                listItem.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
-                    @Override
-                    public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                        int type = repo.getCategoryIdForPassFromTagWindow(newValue.toString());
-                        ItemFactory factory = new ItemFactory();
-                        item = factory.createItem(type);
-                        item.fillInformation(newValue.toString());
-                    }
-                });
+                int type = repo.getCategoryIdForPassFromTagWindow(newValue.toString());
+                ItemFactory factory = new ItemFactory();
+                item = factory.createItem(type);
+                item.fillInformation(newValue.toString());
             }
         });
     }
+    
     public void setUser(User user){
         this.user = user;
     }
+    
     public void setLoggedInfo(LoggedInfo info){
         this.loggedInfo = info;
         if(loggedInfo != null){
@@ -150,5 +144,9 @@ public class TagsController implements Initializable {
                 btnLogBack.setVisible(true);
             }
         }
-    } 
+    }
+    public void setSearchText(String text){
+        this.searchText = text;
+        setList();
+    }
 }

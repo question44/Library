@@ -5,18 +5,12 @@
  */
 package com.limanowa.library;
 
-import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.limanowa.library.model.Account.AccountType;
-import com.limanowa.library.model.Database.DBRepo;
 import com.limanowa.library.model.Account.Person;
-import com.limanowa.library.model.Account.User;
 import com.limanowa.library.model.Database.DBRepoInterface;
-import com.limanowa.library.model.Database.Injection.DependencyInjector;
 import com.limanowa.library.model.Database.Injection.InjectorInstance;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -90,9 +84,17 @@ public class RegisterController implements Initializable {
         person.setEmail(this.txtEmail.getText());
         person.setLogin(this.txtLogin.getText());
         person.setPassword(this.txtPassword.getText());
-        person.setAccountType(1);
-        //System.out.println(this.comboBoxCategory.getValue());
-
+        
+        if(this.comboBoxCategory.getValue().toString().equals("Rodzic")){
+            person.setAccountType(3);
+        }
+        if(this.comboBoxCategory.getValue().toString().equals("Dziecko")){
+            person.setAccountType(2);
+        }
+        if(this.comboBoxCategory.getValue().toString().equals("Spoza domu")){
+            person.setAccountType(4);
+        }
+        
         try{
             if(!repo.AddUser(person)){
             } else {
@@ -114,7 +116,7 @@ public class RegisterController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ObservableList<String> comboBoxList = FXCollections.observableArrayList(
-                "Dziecko","Rodzic","Admin","Spoza domu"
+                "Rodzic","Dziecko","Spoza domu"
         );
         comboBoxCategory.setItems(comboBoxList);
     }    

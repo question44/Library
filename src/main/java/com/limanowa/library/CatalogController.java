@@ -13,20 +13,14 @@ import com.limanowa.library.model.ItemFactory.ItemFactory;
 import com.limanowa.library.model.other.Item;
 import com.limanowa.library.model.other.LoggedInfo;
 import com.limanowa.library.model.other.SubCategory;
-import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -35,12 +29,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TreeCell;
 import javafx.stage.Stage;
 import javafx.scene.control.TreeView;
 import javafx.scene.control.TreeItem;
-import javafx.scene.control.cell.TextFieldTreeCell;
-import javafx.util.Callback;
 
 /**
  * FXML Controller class
@@ -134,18 +125,22 @@ public class CatalogController implements Initializable {
     }
     public void setLoggedInfo(LoggedInfo info){
         this.loggedInfo = info;
-        if(this.loggedInfo.isLogged()){
-            this.btnBack.setVisible(false);
-            this.btnBackLog.setVisible(true);
-        }
-        else{
-            this.btnBackLog.setVisible(false);
+        if(loggedInfo != null){
+            if(this.loggedInfo.isLogged()){
+                this.btnBack.setVisible(false);
+                this.btnBackLog.setVisible(true);
+            }
+            else{
+                this.btnBackLog.setVisible(false);
+            }
         }
     }
     
     public void setUser(User user){
         this.user = user;
     }
+    
+    
     
     public void setTree(List<SubCategory> list){
         TreeItem<String> rootNode = new TreeItem<String>("Biblioteka");
@@ -228,7 +223,6 @@ public class CatalogController implements Initializable {
                 else{
                     btnDetail.setVisible(true);
                 }
-                System.out.println(newValue.toString());
                 ItemFactory factory = new ItemFactory();
                 item = factory.createItem(categoryToPass);
                 item.fillInformation(newValue.toString());

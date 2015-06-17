@@ -67,4 +67,6 @@ public interface DBRepoInterface {
     public int getTagIdDependsOnName(String name);
     public ObservableList<String> getTags(String category, int id);
     public ObservableList<String> getItemForTags(String name);
+    public int getCategoryIdForPassFromTagWindow(String name);
+    public ObservableList<String> getSearchedItems(String text);
 }
