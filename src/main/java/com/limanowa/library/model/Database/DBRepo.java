@@ -42,27 +42,22 @@ public class DBRepo implements DBRepoInterface{
         }
     }
     
-    @Override
     public ArrayList<String> getCategories(){
         Statement stat = null;
-        ArrayList<String> list = new ArrayList<>();
-        try
-        {
+        ArrayList<String> list = new ArrayList<String>();
+        try{
             stat= connection.createStatement();
             ResultSet result = stat.executeQuery("SELECT name FROM Categories");
             while(result.next()){
                 list.add(result.getString("name"));
             }
-        }
-        catch(SQLException e){
+        }catch(SQLException e){
             System.out.println(e.getMessage());
         }
         finally{
-            try 
-            {
+            try {
                 stat.close();
-            } 
-            catch (SQLException ex) {
+            } catch (SQLException ex) {
                 Logger.getLogger(DBRepo.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -95,7 +90,7 @@ public class DBRepo implements DBRepoInterface{
     @Override
     public int CheckUser(Person person){
         Statement stat = null;
-        int type = 0;
+        int type = -1;
         try{
             stat = connection.createStatement();
             ResultSet result = stat.executeQuery("SELECT accountId FROM USERS WHERE username = '"+person.getLogin()+"'");
@@ -190,17 +185,14 @@ public class DBRepo implements DBRepoInterface{
         return getItemDependOnCategory("Movies");
     }
     
-    @Override
     public ObservableList<String> getBooks(String subcategory){
         return getItemDependOnCategoryAndSubcategory("Books", subcategory);
     }
     
-    @Override
     public ObservableList<String> getAlbums(String subcategory){
         return getItemDependOnCategoryAndSubcategory("Albums", subcategory);
     }
     
-    @Override
     public ObservableList<String> getMovies(String subcategory){
         return getItemDependOnCategoryAndSubcategory("Movies", subcategory);
     }
@@ -419,13 +411,13 @@ public class DBRepo implements DBRepoInterface{
     }
 
     private ObservableList<ApprovalInfo> getAlbumsOrders(int userId) throws SQLException {
-        ObservableList<ApprovalInfo> list;
+        ObservableList<ApprovalInfo> list = FXCollections.observableArrayList();
         list = getOrders("Albums","albumId",3, userId);
         return list;
     }
 
     private ObservableList<ApprovalInfo> getMoviesOrders(int userId) throws SQLException {
-        ObservableList<ApprovalInfo> list;
+        ObservableList<ApprovalInfo> list = FXCollections.observableArrayList();
         list = getOrders("Movies","moviesId",2, userId);
         return list;
     }
@@ -555,19 +547,19 @@ public class DBRepo implements DBRepoInterface{
     }
 
     private ObservableList<SetOrderInfo> getBooksSetOrders(String username) throws SQLException {
-        ObservableList<SetOrderInfo> list;
+        ObservableList<SetOrderInfo> list = FXCollections.observableArrayList();
         list = getSetOrders("Books","bookId",1, username);
         return list;
     }
 
     private ObservableList<SetOrderInfo> getAlbumsSetOrders(String username) throws SQLException {
-        ObservableList<SetOrderInfo> list;
+        ObservableList<SetOrderInfo> list = FXCollections.observableArrayList();
         list = getSetOrders("Movies","moviesId",2, username);
         return list;
     }
 
     private ObservableList<SetOrderInfo> getMoviesSetOrders(String username) throws SQLException {
-        ObservableList<SetOrderInfo> list;
+        ObservableList<SetOrderInfo> list = FXCollections.observableArrayList();
         list = getSetOrders("Albums","albumId",3, username);
         return list;
     }
@@ -734,8 +726,12 @@ public class DBRepo implements DBRepoInterface{
         try{
             stat = connection.createStatement();
             ResultSet result = stat.executeQuery("SELECT messagesId FROM Messages Where username = '"+username+"' AND readed = 0");
-            b = (result.next() ? true : false);
-            
+            if(result.next()){
+                b = true;
+            }
+            else{
+                b = false;
+            }
         }catch(SQLException ex){
             System.out.println(ex.getMessage());
         }
@@ -1019,8 +1015,253 @@ public class DBRepo implements DBRepoInterface{
     @Override
     public ObservableList<String> getItemForTags(String name) {
         ObservableList<String> list = FXCollections.observableArrayList();
-        //osobno z ksiazek, albumow i filmow i zlaczyc.
+        
+        ObservableList<String> listOfBooks = getItemFromBooks(name);
+        ObservableList<String> listOfMovies = getItemFromMovies(name);
+        ObservableList<String> listOfAlbums = getItemFromAlbums(name);
+        
+        list.addAll(listOfBooks);
+        list.addAll(listOfMovies);
+        list.addAll(listOfAlbums);
+        
         return list;
     }
    
+    
+    private ObservableList<String> getItemFromBooks(String name){
+        ObservableList<String> list = FXCollections.observableArrayList();
+        Statement stat = null;
+        
+        try{
+            stat = connection.createStatement();
+            ResultSet result = stat.executeQuery("SELECT title FROM Books JOIN TagsItem ON TagsItem.itemId = Books.bookId JOIN Tags ON Tags.tagId = TagsItem.tagId "
+                    + "where TagsItem.categoryId = 1 AND name = '"+name+"' ");
+            while(result.next()){
+                list.add(result.getString("title"));
+            }
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        finally{
+            try {
+                stat.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DBRepo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return list;
+    }
+    
+    private ObservableList<String> getItemFromMovies(String name){
+        ObservableList<String> list = FXCollections.observableArrayList();
+        Statement stat = null;
+        
+        try{
+            stat = connection.createStatement();
+            ResultSet result = stat.executeQuery("SELECT title FROM Movies JOIN TagsItem ON TagsItem.itemId = Movies.moviesId JOIN Tags ON Tags.tagId = TagsItem.tagId "
+                    + "where TagsItem.categoryId = 2 AND name = '"+name+"' ");
+            while(result.next()){
+                list.add(result.getString("title"));
+            }
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        finally{
+            try {
+                stat.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DBRepo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return list;
+    }
+    
+    private ObservableList<String> getItemFromAlbums(String name){
+        ObservableList<String> list = FXCollections.observableArrayList();
+        Statement stat = null;
+        
+        try{
+            stat = connection.createStatement();
+            ResultSet result = stat.executeQuery("SELECT title FROM Albums JOIN TagsItem ON TagsItem.itemId = Albums.albumId JOIN Tags ON Tags.tagId = TagsItem.tagId "
+                    + "where TagsItem.categoryId = 3 AND name = '"+name+"' ");
+            while(result.next()){
+                list.add(result.getString("title"));
+            }
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        finally{
+            try {
+                stat.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DBRepo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public int getCategoryIdForPassFromTagWindow(String name) {
+        int type = 0;
+        
+        if(searchInBooks(name)){
+             type = 1; 
+        }
+        
+        if(searchInMovies(name)){
+            type = 2;
+        }
+        
+        if(searchInAlbums(name)){
+            type = 3;
+        }
+        
+        return type;
+    }
+
+    private boolean searchInBooks(String name) {
+        Statement stat = null;
+        boolean x = false;
+        try{
+            stat = connection.createStatement();
+            ResultSet result = stat.executeQuery("SELECT title FROM Books WHERE title = '"+name+"'");
+            if(result.next()){
+                x = true;
+            }
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        finally{
+            try {
+                stat.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DBRepo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return x;
+    }
+
+    private boolean searchInMovies(String name) {
+        Statement stat = null;
+        boolean x = false;
+        try{
+            stat = connection.createStatement();
+            ResultSet result = stat.executeQuery("SELECT title FROM Movies WHERE title = '"+name+"'");
+            if(result.next()){
+                x = true;
+            }
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        finally{
+            try {
+                stat.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DBRepo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return x;
+    }
+
+    private boolean searchInAlbums(String name) {
+        Statement stat = null;
+        boolean x = false;
+        try{
+            stat = connection.createStatement();
+            ResultSet result = stat.executeQuery("SELECT title FROM Albums WHERE title = '"+name+"'");
+            if(result.next()){
+                x = true;
+            }
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        finally{
+            try {
+                stat.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DBRepo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return x;
+    }
+
+    @Override
+    public ObservableList<String> getSearchedItems(String text) {
+        ObservableList<String> list = FXCollections.observableArrayList();
+        list.addAll(SearchSimilarInAlbums(text));
+        list.addAll(SearchSimilarInBooks(text));
+        list.addAll(SearchSimilarInMovies(text));
+        return list;
+    }
+    
+    private ObservableList<String> SearchSimilarInBooks(String text){
+        Statement stat = null;
+        ObservableList<String> list = FXCollections.observableArrayList();
+        try{
+            System.out.println("weszlo");
+            stat = connection.createStatement();
+            ResultSet result = stat.executeQuery("SELECT title FROM Books WHERE title LIKE '%"+text+"%' ");
+            System.out.println(stat.toString());
+            while(result.next()){
+                System.out.println("jeeeeeest");
+                list.add(result.getString("title"));
+            }
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        finally{
+            try {
+                stat.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DBRepo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return list;
+    }
+    
+    private ObservableList<String> SearchSimilarInMovies(String text){
+        Statement stat = null;
+        ObservableList<String> list = FXCollections.observableArrayList();
+        try{
+            stat = connection.createStatement();
+            ResultSet result = stat.executeQuery("SELECT title FROM Movies WHERE title LIKE '%"+text+"%'");
+            while(result.next()){
+                System.out.println("jeeeeeest");
+                list.add(result.getString("title"));
+            }
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        finally{
+            try {
+                stat.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DBRepo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return list;
+    }
+    
+    private ObservableList<String> SearchSimilarInAlbums(String text){
+        Statement stat = null;
+        ObservableList<String> list = FXCollections.observableArrayList();
+        try{
+            stat = connection.createStatement();
+            ResultSet result = stat.executeQuery("SELECT title FROM Albums WHERE title LIKE '%"+text+"%'");
+            while(result.next()){
+                System.out.println("jeeeeeest");
+                list.add(result.getString("title"));
+            }
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        finally{
+            try {
+                stat.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DBRepo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return list;
+    }
 }
