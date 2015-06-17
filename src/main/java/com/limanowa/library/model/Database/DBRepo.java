@@ -3,31 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+/**
+ *
+ * @author Patryk
+ */
 package com.limanowa.library.model.Database;
 import com.limanowa.library.model.Account.Person;
 import com.limanowa.library.model.other.AlbumItem;
 import com.limanowa.library.model.other.ApprovalInfo;
 import com.limanowa.library.model.other.BookItem;
-import com.limanowa.library.model.other.Item;
 import com.limanowa.library.model.other.MovieItem;
 import com.limanowa.library.model.other.OrderInfo;
 import com.limanowa.library.model.other.SetOrderInfo;
 import com.limanowa.library.model.other.SubCategory;
 import java.sql.*;
-/**
- *
- * @author Patryk
- */
-import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.sqlite.JDBC;
 
 public class DBRepo implements DBRepoInterface{
     public static Connection connection = null;

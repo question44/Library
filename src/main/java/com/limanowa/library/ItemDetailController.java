@@ -5,7 +5,6 @@
  */
 package com.limanowa.library;
 
-import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.limanowa.library.model.Account.User;
 import com.limanowa.library.model.Database.DBRepoInterface;
@@ -175,13 +174,13 @@ public class ItemDetailController implements Initializable {
     
     public void setItem(Item item){
         this.item = item;
+        
         this.lblTitle.setText(item.getTitle());
         this.lblAuthor.setText(lblAuthor.getText()+": "+item.getAdditionalInfo());
         this.lblCategory.setText(lblCategory.getText()+": "+item.getCategory());
         this.lblSubcategory.setText(lblSubcategory.getText()+": "+item.getSubcategory());
         this.lblUser.setText(lblUser.getText()+": "+item.getUser());
         this.txtDescription.setText(item.getDescription());
-        System.out.println(item.isAvalibility());
         
         if(loggedInfo != null){
             if(loggedInfo.getUserId()!=0 && item.getUserId()!=0){
@@ -233,7 +232,6 @@ public class ItemDetailController implements Initializable {
         this.from = from;
         
         if(this.from.equals("Tagi")){
-            System.out.println("tal tagi");
             btnBack.setVisible(false);
             btnListTagBack.setVisible(true);
             btnSeachBack.setVisible(false);

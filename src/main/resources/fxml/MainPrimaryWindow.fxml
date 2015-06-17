@@ -9,7 +9,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.limanowa.library.MainPrimaryWindowController">
   <children>
-    <TextField fx:id="txtSearch" layoutX="135.0" layoutY="178.0" prefHeight="33.0" prefWidth="330.0" promptText="Wpisz szukaną frazę..." />
+    <TextField fx:id="txtSearch" layoutX="135.0" layoutY="178.0" prefHeight="33.0" prefWidth="330.0" promptText="Wpisz szukaną frazę..." text="" />
     <Button fx:id="btnSearch" layoutX="437.0" layoutY="222.0" mnemonicParsing="false" onAction="#btnSearchAction" text="Szukaj" />
     <Button fx:id="btnCatalog" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnCatalogAction" prefHeight="21.0" prefWidth="95.0" text="Katalog" />
     <Button fx:id="btnLogin" layoutX="491.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnLoginAction" prefHeight="21.0" prefWidth="95.0" text="Zaloguj się!" />

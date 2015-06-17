@@ -5,14 +5,7 @@
  */
 package com.limanowa.library;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.limanowa.library.model.Account.Person;
 import com.limanowa.library.model.Account.User;
-import com.limanowa.library.model.Database.DBRepo;
-import com.limanowa.library.model.Database.DBRepoInterface;
-import com.limanowa.library.model.Database.Injection.DependencyInjector;
-import com.limanowa.library.model.Database.Injection.InjectorInstance;
 import com.limanowa.library.model.other.LoggedInfo;
 import java.io.IOException;
 import java.net.URL;

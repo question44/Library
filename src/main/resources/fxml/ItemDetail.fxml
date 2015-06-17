@@ -19,11 +19,13 @@
     <Label fx:id="lblSubcategory" layoutX="14.0" layoutY="209.0" text="Podkategorian" />
     <Label fx:id="lblUser" layoutX="16.0" layoutY="236.0" text="Wlasciciel" />
     <Label fx:id="lblAuthor" layoutX="14.0" layoutY="266.0" text="Rezyser/Autor/Zesól" />
-    <Button fx:id="btnBack" layoutX="530.0" layoutY="366.0" mnemonicParsing="false" onAction="#btnBackAction" text="Powrót" />
+    <Button fx:id="btnBack" layoutX="516.0" layoutY="365.0" mnemonicParsing="false" onAction="#btnBackAction" text="Powrót" />
     <Button fx:id="btnOrder" layoutX="117.0" layoutY="292.0" mnemonicParsing="false" onAction="#btnOrderAction" text="Złóż zamównienie!" />
     <Label fx:id="lblMsg" layoutX="14.0" layoutY="297.0" text="Nie możesz pożyczyć tej rzeczy, to jest Twoje !" textFill="RED" visible="false" />
     <Label fx:id="lblAval" layoutX="13.0" layoutY="295.0" text="Ta rzecz jest juz zamówiona/pożyczona" textFill="#cc0000" visible="false" />
     <ListView fx:id="listTag" layoutX="374.0" layoutY="92.0" prefHeight="234.0" prefWidth="200.0" />
     <Label layoutX="374.0" layoutY="72.0" text="Lista tagów" />
+    <Button fx:id="btnListTagBack" layoutX="530.0" layoutY="365.0" mnemonicParsing="false" onAction="#btnListTagBackAction" text="Powrót" visible="false" />
+    <Button fx:id="btnSeachBack" layoutX="530.0" layoutY="365.0" mnemonicParsing="false" onAction="#btnSearchBackAction" text="Powrót" visible="false" />
   </children>
 </AnchorPane>
