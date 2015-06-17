@@ -170,8 +170,20 @@ public class MainExtraWindowController implements Initializable {
     }
     
     @FXML
-    private void btnSearchAction(ActionEvent event){
-        System.out.println(user.getClass());
+    private void btnSearchAction(ActionEvent event) throws IOException{
+        ((Node)event.getSource()).getScene().getWindow().hide();
+        
+        loader.setLocation(getClass().getResource("/fxml/Search.fxml"));
+        loader.load();
+        Parent parent = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(parent));
+        stage.setTitle("Moje wypożyczenia");
+        SearchController controller = loader.<SearchController>getController();
+        controller.setLoggedInfo(loggedInfo);
+        controller.setUser(user);
+        controller.setSearchText(this.txtSearch.getText());
+        stage.show();
     }
     
     public MainExtraWindowController(){

@@ -13,6 +13,7 @@ import com.limanowa.library.model.Database.Injection.InjectorInstance;
 import com.limanowa.library.model.other.Item;
 import com.limanowa.library.model.other.LoggedInfo;
 import com.limanowa.library.model.other.OrderInfo;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -42,6 +43,8 @@ public class ItemDetailController implements Initializable {
     private Injector injector = null;
     private DBRepoInterface repo = null;
     private ObservableList<String> tags = FXCollections.observableArrayList();
+    private String from;
+    private String searchTemp;
     /**
      * Initializes the controller class.
      */
@@ -81,6 +84,44 @@ public class ItemDetailController implements Initializable {
     @FXML
     private ListView listTag;
     
+    @FXML
+    private Button btnListTagBack;
+    
+    @FXML
+    private Button btnSeachBack;
+    
+    
+    @FXML
+    private void btnListTagBackAction(ActionEvent event) throws IOException{
+        ((Node)event.getSource()).getScene().getWindow().hide();
+            loader.setLocation(getClass().getResource("/fxml/Tags.fxml"));
+            loader.load();
+            Parent parent = loader.getRoot();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(parent));
+            stage.setTitle("Tagi");
+            TagsController controller = loader.<TagsController>getController();
+            controller.setLoggedInfo(loggedInfo);
+            controller.setUser(user);
+            stage.show();   
+    }
+    
+    @FXML
+    private void btnSearchBackAction(ActionEvent event) throws IOException{
+        ((Node)event.getSource()).getScene().getWindow().hide();
+            loader.setLocation(getClass().getResource("/fxml/Search.fxml"));
+            loader.load();
+            Parent parent = loader.getRoot();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(parent));
+            stage.setTitle("Wyszukiwarka");
+            SearchController controller = loader.<SearchController>getController();
+            controller.setLoggedInfo(loggedInfo);
+            controller.setUser(user);
+            controller.setSearchText(this.searchTemp);
+            stage.show();
+    }
+    
     @FXML 
     private void btnBackAction(ActionEvent event) throws Exception{
         ((Node)event.getSource()).getScene().getWindow().hide();
@@ -90,7 +131,6 @@ public class ItemDetailController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(new Scene(parent));
             stage.setTitle("Katalog");
-            
             CatalogController controller = loader.<CatalogController>getController();
             controller.setLoggedInfo(loggedInfo);
             controller.setUser(user);
@@ -119,7 +159,6 @@ public class ItemDetailController implements Initializable {
             controller.setLoggedInfo(loggedInfo);
             controller.setUser(user);
             controller.setItem(item);
-            
             stage.show();
     }
     
@@ -144,28 +183,29 @@ public class ItemDetailController implements Initializable {
         this.txtDescription.setText(item.getDescription());
         System.out.println(item.isAvalibility());
         
-        
-        if(loggedInfo.getUserId()!=0 && item.getUserId()!=0){
-            if(item.isAvalibility() == 1 && item.getUserId() == loggedInfo.getUserId()){
-                this.btnOrder.setVisible(false);
-                this.lblMsg.setVisible(true);
-                this.lblAval.setVisible(false);
-            }  
-            if(item.isAvalibility() == 0 && item.getUserId() == loggedInfo.getUserId()){
-                this.btnOrder.setVisible(false);
-                this.lblMsg.setVisible(true);
-                this.lblAval.setVisible(false);
+        if(loggedInfo != null){
+            if(loggedInfo.getUserId()!=0 && item.getUserId()!=0){
+                if(item.isAvalibility() == 1 && item.getUserId() == loggedInfo.getUserId()){
+                    this.btnOrder.setVisible(false);
+                    this.lblMsg.setVisible(true);
+                    this.lblAval.setVisible(false);
+                }  
+                if(item.isAvalibility() == 0 && item.getUserId() == loggedInfo.getUserId()){
+                    this.btnOrder.setVisible(false);
+                    this.lblMsg.setVisible(true);
+                    this.lblAval.setVisible(false);
+                }
+                if(item.isAvalibility() == 0 && item.getUserId() != loggedInfo.getUserId()){
+                    this.btnOrder.setVisible(false);
+                    this.lblAval.setVisible(true);
+                    this.lblMsg.setVisible(false);
+                }
             }
-            if(item.isAvalibility() == 0 && item.getUserId() != loggedInfo.getUserId()){
+            else{
                 this.btnOrder.setVisible(false);
-                this.lblAval.setVisible(true);
+                this.lblAval.setVisible(false);
                 this.lblMsg.setVisible(false);
             }
-        }
-        else{
-            this.btnOrder.setVisible(false);
-            this.lblAval.setVisible(false);
-            this.lblMsg.setVisible(false);
         }
         tags = repo.getTags(item.getCategory(), item.getId());
         listTag.setItems(tags);
@@ -176,11 +216,36 @@ public class ItemDetailController implements Initializable {
     }
     public void setLoggedInfo(LoggedInfo info){
         this.loggedInfo = info;
-        if(this.loggedInfo.isLogged()){
-            btnOrder.setVisible(true);
+        if(this.loggedInfo != null){
+            if(this.loggedInfo.isLogged()){
+                btnOrder.setVisible(true);
+            }
+            else{
+                btnOrder.setVisible(false);
+            }
         }
         else{
             btnOrder.setVisible(false);
         }
+    }
+    
+    public void setFrom(String from){
+        this.from = from;
+        
+        if(this.from.equals("Tagi")){
+            System.out.println("tal tagi");
+            btnBack.setVisible(false);
+            btnListTagBack.setVisible(true);
+            btnSeachBack.setVisible(false);
+        }
+        if(this.from.equals("Wyszukiwarka")){
+            btnBack.setVisible(false);
+            btnListTagBack.setVisible(false);
+            btnSeachBack.setVisible(true);
+        }
+    }
+    
+    public void setSearch(String text){
+        this.searchTemp = text;
     }
 }

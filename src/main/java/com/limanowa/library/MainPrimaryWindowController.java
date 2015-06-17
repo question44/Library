@@ -5,7 +5,14 @@
  */
 package com.limanowa.library;
 
-
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.limanowa.library.model.Account.Person;
+import com.limanowa.library.model.Account.User;
+import com.limanowa.library.model.Database.DBRepo;
+import com.limanowa.library.model.Database.DBRepoInterface;
+import com.limanowa.library.model.Database.Injection.DependencyInjector;
+import com.limanowa.library.model.Database.Injection.InjectorInstance;
 import com.limanowa.library.model.other.LoggedInfo;
 import java.io.IOException;
 import java.net.URL;
@@ -17,8 +24,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import com.limanowa.library.model.Account.User;
 
 /**
  * FXML Controller class
@@ -29,6 +36,9 @@ public class MainPrimaryWindowController implements Initializable {
     private User user = null;
     private LoggedInfo loggedInfo = null;
     private final FXMLLoader loader = new FXMLLoader();
+    
+    @FXML
+    private TextField txtSearch;
     
     @FXML
     private void btnTagsAction(ActionEvent event) throws IOException{
@@ -47,8 +57,20 @@ public class MainPrimaryWindowController implements Initializable {
     }
     
     @FXML
-    private void btnSearchAction(ActionEvent event){
+    private void btnSearchAction(ActionEvent event) throws IOException{
+        ((Node)event.getSource()).getScene().getWindow().hide();
         
+        loader.setLocation(getClass().getResource("/fxml/Search.fxml"));
+        loader.load();
+        Parent parent = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(parent));
+        stage.setTitle("Wyszukiwarka");
+        SearchController controller = loader.<SearchController>getController();
+        controller.setLoggedInfo(loggedInfo);
+        controller.setUser(user);
+        controller.setSearchText(this.txtSearch.getText());
+        stage.show();
     }
     
     @FXML

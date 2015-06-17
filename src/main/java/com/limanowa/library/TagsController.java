@@ -9,6 +9,7 @@ import com.google.inject.Injector;
 import com.limanowa.library.model.Account.User;
 import com.limanowa.library.model.Database.DBRepoInterface;
 import com.limanowa.library.model.Database.Injection.InjectorInstance;
+import com.limanowa.library.model.ItemFactory.ItemFactory;
 import com.limanowa.library.model.other.ApprovalInfo;
 import com.limanowa.library.model.other.Item;
 import com.limanowa.library.model.other.LoggedInfo;
@@ -75,6 +76,7 @@ public class TagsController implements Initializable {
             controller.setLoggedInfo(loggedInfo);
             controller.setItem(item);
             controller.setUser(user);
+            controller.setFrom("Tagi");
             stage.show();
     }
     
@@ -122,7 +124,17 @@ public class TagsController implements Initializable {
         listTag.getSelectionModel().selectedItemProperty().addListener(new ChangeListener(){
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                //listItem.setItems(repo.getItemForTags(newValue.toString()));
+                listItem.setItems(repo.getItemForTags(newValue.toString()));
+                listItem.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+                    @Override
+                    public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                        int type = repo.getCategoryIdForPassFromTagWindow(newValue.toString());
+                        System.out.println(type);
+                        ItemFactory factory = new ItemFactory();
+                        item = factory.createItem(type);
+                        item.fillInformation(newValue.toString());
+                    }
+                });
             }
         
         });
@@ -141,6 +153,5 @@ public class TagsController implements Initializable {
                 btnLogBack.setVisible(true);
             }
         }
-        
     } 
 }
