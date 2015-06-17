@@ -13,20 +13,14 @@ import com.limanowa.library.model.ItemFactory.ItemFactory;
 import com.limanowa.library.model.other.Item;
 import com.limanowa.library.model.other.LoggedInfo;
 import com.limanowa.library.model.other.SubCategory;
-import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -35,12 +29,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TreeCell;
 import javafx.stage.Stage;
 import javafx.scene.control.TreeView;
 import javafx.scene.control.TreeItem;
-import javafx.scene.control.cell.TextFieldTreeCell;
-import javafx.util.Callback;
 
 /**
  * FXML Controller class
@@ -148,10 +139,10 @@ public class CatalogController implements Initializable {
     }
     
     public void setTree(List<SubCategory> list){
-        TreeItem<String> rootNode = new TreeItem<String>("Biblioteka");
+        TreeItem<String> rootNode = new TreeItem<>("Biblioteka");
         rootNode.setExpanded(true);
         for(SubCategory s : list){
-            TreeItem<String> empLeaf = new TreeItem<String>(s.getName());
+            TreeItem<String> empLeaf = new TreeItem<>(s.getName());
             boolean found = false;
             for(TreeItem<String> catNode : rootNode.getChildren()){
                 if(catNode.getValue().contentEquals(s.getCategory())){
@@ -161,7 +152,7 @@ public class CatalogController implements Initializable {
                 }
             }
             if(!found){
-                TreeItem<String> catNode = new TreeItem<String>(s.getCategory());
+                TreeItem<String> catNode = new TreeItem<>(s.getCategory());
                 rootNode.getChildren().add(catNode);
                 catNode.getChildren().add(empLeaf);
             }

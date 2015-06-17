@@ -26,11 +26,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Background;
 import javafx.stage.Stage;
 
 /**
@@ -44,7 +42,7 @@ public class ApprovalController implements Initializable {
     private Injector injector = null;
     private ApprovalInfo toApprove = null;
     private DBRepoInterface repo = null;
-    private FXMLLoader loader = new FXMLLoader();
+    final private FXMLLoader loader = new FXMLLoader();
     private ObservableList<ApprovalInfo> tableList = FXCollections.observableArrayList();
     /**
      * Initializes the controller class.

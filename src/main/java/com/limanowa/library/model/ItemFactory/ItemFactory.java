@@ -17,7 +17,7 @@ import com.limanowa.library.model.other.MovieItem;
 public class ItemFactory implements ItemFactoryInterface{
 @Override
     public Item createItem(int itemType) {
-        Item item = null;
+        Item item;
         switch(itemType){
             case 1:
                 item = new BookItem();

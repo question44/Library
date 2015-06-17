@@ -24,7 +24,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
-import javax.imageio.IIOException;
 
 /**
  * FXML Controller class
@@ -35,7 +34,7 @@ public class MessagesController implements Initializable {
     User user = null;
     LoggedInfo loggedInfo  = null;
     private Injector injector = null;
-    private ApprovalInfo toApprove = null;
+    final private ApprovalInfo toApprove = null;
     private DBRepoInterface repo = null;
     @FXML
     FXMLLoader loader = new FXMLLoader();

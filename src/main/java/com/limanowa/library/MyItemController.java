@@ -9,7 +9,6 @@ import com.google.inject.Injector;
 import com.limanowa.library.model.Account.User;
 import com.limanowa.library.model.Database.DBRepoInterface;
 import com.limanowa.library.model.Database.Injection.InjectorInstance;
-import com.limanowa.library.model.other.ApprovalInfo;
 import com.limanowa.library.model.other.LoggedInfo;
 import com.limanowa.library.model.other.SetOrderInfo;
 import java.net.URL;
@@ -41,7 +40,7 @@ public class MyItemController implements Initializable {
     private User user = null;
     private Injector injector = null;
     private DBRepoInterface repo = null;
-    private FXMLLoader loader = new FXMLLoader();
+    final private FXMLLoader loader = new FXMLLoader();
     private ObservableList<SetOrderInfo> tableList = FXCollections.observableArrayList();
     private SetOrderInfo setOrderInfo;
     

@@ -75,9 +75,11 @@ public class LoginController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(new Scene(parent));
             stage.setTitle("Witamy po zalogowaniu");
+            
             MainExtraWindowController controller = loader.<MainExtraWindowController>getController();
             controller.setUser(user);
             controller.setLoggedInfo(loggedInfo);
+            
             stage.show();
         }
     }
