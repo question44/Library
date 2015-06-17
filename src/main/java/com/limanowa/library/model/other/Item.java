@@ -16,6 +16,7 @@ import com.limanowa.library.model.Database.Injection.InjectorInstance;
 public abstract class Item {
     protected int id;
     protected String subcategory;
+    protected int subcategoryId;
     protected String title;
     protected String description;
     protected String user;
@@ -23,7 +24,8 @@ public abstract class Item {
     protected int itemId;
     protected int avalibility;
     protected Injector injector = null;
-
+    
+    
     protected DBRepoInterface repo = null;
     
     public Item(){
@@ -37,7 +39,16 @@ public abstract class Item {
     public abstract String getAdditionalInfo();
     public abstract void fillInformation(String name);
     public abstract void setAvalibility(int item, int val);
-    
+    public abstract void addItem(Item item, String var);
+    public abstract int getLastId();
+
+    public int getSubcategoryId() {
+        return subcategoryId;
+    }
+
+    public void setSubcategoryId(int subcategoryId) {
+        this.subcategoryId = subcategoryId;
+    }
     
     public int isAvalibility() {
         return avalibility;

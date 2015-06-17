@@ -21,16 +21,16 @@ public class AccountFactory implements AccountFactoryInterface{
     public User createAccount(int accountType) {
         User user = null;
         switch(accountType){
-            case 0 : 
+            case 1 : 
                 user = new AdminUser();
                 break;
-            case 1:
+            case 3:
                 user = new ParentUser();
                 break;
             case 2:
                 user = new ChildUser();
                 break;
-            case 3:
+            case 4:
                 user = new OtherUser();
                 break;
             default:

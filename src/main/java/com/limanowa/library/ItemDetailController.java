@@ -5,12 +5,18 @@
  */
 package com.limanowa.library;
 
+import com.google.inject.Inject;
+import com.google.inject.Injector;
 import com.limanowa.library.model.Account.User;
+import com.limanowa.library.model.Database.DBRepoInterface;
+import com.limanowa.library.model.Database.Injection.InjectorInstance;
 import com.limanowa.library.model.other.Item;
 import com.limanowa.library.model.other.LoggedInfo;
 import com.limanowa.library.model.other.OrderInfo;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +26,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
@@ -32,6 +39,9 @@ public class ItemDetailController implements Initializable {
     private Item item = null;
     private User user = null;
     private LoggedInfo loggedInfo = null;
+    private Injector injector = null;
+    private DBRepoInterface repo = null;
+    private ObservableList<String> tags = FXCollections.observableArrayList();
     /**
      * Initializes the controller class.
      */
@@ -67,6 +77,9 @@ public class ItemDetailController implements Initializable {
     
     @FXML
     private Label lblAval;
+
+    @FXML
+    private ListView listTag;
     
     @FXML 
     private void btnBackAction(ActionEvent event) throws Exception{
@@ -108,6 +121,12 @@ public class ItemDetailController implements Initializable {
             stage.show();
     }
     
+    public ItemDetailController(){
+        injector = new InjectorInstance().getInstance();
+        repo = injector.getInstance(DBRepoInterface.class);
+        repo.ConnectDB();
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
@@ -146,7 +165,9 @@ public class ItemDetailController implements Initializable {
             this.lblAval.setVisible(false);
             this.lblMsg.setVisible(false);
         }
-        
+        tags = repo.getTags(item.getCategory(), item.getId());
+        listTag.setItems(tags);
+        listTag.setEditable(false);
     }
     public void setUser(User user){
         this.user = user;

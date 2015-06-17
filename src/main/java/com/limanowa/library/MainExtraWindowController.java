@@ -50,7 +50,24 @@ public class MainExtraWindowController implements Initializable {
     @FXML
     private Button btnMessages;
     
+    @FXML
+    private Button btnAddItem;
     
+    @FXML
+    private void btnTagsAction(ActionEvent event) throws IOException{
+        ((Node)event.getSource()).getScene().getWindow().hide();
+        
+        loader.setLocation(getClass().getResource("/fxml/Tags.fxml"));
+        loader.load();
+        Parent parent = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(parent));
+        stage.setTitle("Lista tagów");
+        TagsController controller = loader.<TagsController>getController();
+        controller.setLoggedInfo(loggedInfo);
+        controller.setUser(user);
+        stage.show();
+    }
     
     @FXML
     private void btnMessagesAction(ActionEvent event) throws IOException{
@@ -89,6 +106,22 @@ public class MainExtraWindowController implements Initializable {
     @FXML
     private void btnEndAction(ActionEvent event){
         ((Node)event.getSource()).getScene().getWindow().hide();
+    }
+    
+    @FXML
+    private void btnAddItemAcition(ActionEvent event) throws IOException{
+        ((Node)event.getSource()).getScene().getWindow().hide();
+        
+        loader.setLocation(getClass().getResource("/fxml/AddItem.fxml"));
+        loader.load();
+        Parent parent = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(parent));
+        stage.setTitle("Dodaj produkt");
+        AddItemController controller = loader.<AddItemController>getController();
+        controller.setLoggedInfo(loggedInfo);
+        controller.setUser(user);
+        stage.show();
     }
     
     @FXML
@@ -156,6 +189,10 @@ public class MainExtraWindowController implements Initializable {
         this.lblWelcome.setText("Witaj "+this.user.getFirstName());
         if(repo.CheckMessages(user.getLogin())){
             this.btnMessages.setStyle("-fx-border-style:solid; -fx-border-width:3px; -fx-border-color:green");
+        }
+        System.out.println(user.getClass().getName());
+        if(user.getClass().getName().equals("com.limanowa.library.model.Account.ParentUser")){
+            this.btnAddItem.setVisible(true);
         }
     }
     public void setLoggedInfo(LoggedInfo loggedInfo){
